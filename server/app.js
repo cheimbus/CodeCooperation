@@ -9,7 +9,6 @@ const http = require("http");
 const socketIO = require("socket.io");
 const server = http.createServer(app);
 const { chat } = require("./models");
-// 시퀄라이즈 모델 테스트
 const models = require("./models/index");
 models.sequelize
   .sync({ alter: true })
@@ -21,7 +20,6 @@ models.sequelize
     console.log(err);
   });
 
-// 미들웨어
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -41,18 +39,12 @@ const io = socketIO(server, {
     credentials: true,
   },
 });
-//연결이되면? .on(이벤트를 받는다 , 콜백함수 실행)
-//.emit(이벤트를 쏜다, 내정보)
 io.on("connection", (socket) => {
   socket.on("join", ({ roomName: room, userName: user }) => {
     socket.join(room);
-
     io.to(room).emit("onConnect", `${user} 님이 입장했습니다.`);
-
-    // 전송버튼 보낸걸 다시 ChatLog로 보내줌
+    줌;
     socket.on("onSend", async (messageItem) => {
-      // console.log(room, "룸번호");
-      // console.log(messageItem, "메시지아이템");
       const createdChat = await chat.create({
         user_id: messageItem.user,
         post_id: room,
@@ -67,10 +59,8 @@ io.on("connection", (socket) => {
     });
   });
 });
-// 라우터
 app.use("/", indexRouter);
 
-// 서버 실행
 app.set("port", process.env.PORT || 3000);
 server.listen(app.get("port"), () => {
   console.log(`🧶서버가 ${app.get("port")} 포트로 열렸습니다!`);

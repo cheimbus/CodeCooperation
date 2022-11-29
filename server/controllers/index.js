@@ -5,7 +5,6 @@ const google = require("./user/google");
 const signup = require("./user/signup");
 const signin = require("./user/signin");
 const signout = require("./user/signout");
-// const auth = require("./user/auth");
 const posts = require("./post/posts");
 const post_add = require("./post/post-add");
 const post_delete = require("./post/post-delete");
@@ -30,7 +29,6 @@ router.post("/signout", signout);
 router.patch("/user-modify", user_modify);
 router.get("/mylist/:id", user_posts.getUserPosts);
 router.delete("/user-delete/:id", user_delete.userDelete);
-// router.get("/auth", auth);
 
 // post
 router.get("/posts", posts.getAllPost);

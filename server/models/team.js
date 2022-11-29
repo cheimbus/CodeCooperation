@@ -12,32 +12,32 @@ module.exports = function (sequelize, DataTypes) {
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onDelete : "cascade",
+        onDelete: "cascade",
         references: {
           model: "user",
-          key: "id"
-        }
+          key: "id",
+        },
       },
       post_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onDelete : "cascade",
+        onDelete: "cascade",
         references: {
           model: "post",
-          key: "id"
-        }
-      }
+          key: "id",
+        },
+      },
     },
     {
-        sequelize,
-         tableName: "team",
-         timestamps: false,
-         underscored: true
+      sequelize,
+      tableName: "team",
+      timestamps: false,
+      underscored: true,
     }
-    )
-    team.associate = function (models) {
-        team.belongsTo(models.user, { foreignKey: "user_id"});
-        team.belongsTo(models.post, { foreignKey: "post_id"});
-    }
-    return team
-}
+  );
+  team.associate = function (models) {
+    team.belongsTo(models.user, { foreignKey: "user_id" });
+    team.belongsTo(models.post, { foreignKey: "post_id" });
+  };
+  return team;
+};

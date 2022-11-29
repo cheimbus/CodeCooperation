@@ -3,24 +3,17 @@ const { isAuthorized } = require("../jwtToken/index");
 const bcrypt = require("bcrypt");
 
 module.exports = async (req, res) => {
-  console.log(req.headers["authorization"])
+  console.log(req.headers["authorization"]);
   const rightUser = isAuthorized(req);
-  
   const { userId, userNickname, password } = req.body;
-  console.log(userId)
-  // if (!rightUser) {
-  //   res.status(401).send({ data: null, message: "토큰이 존재하지 않습니다." });
-  // } else {
-    
-  // }
   if (!userId) {
     res.status(400).send({ message: "전부 입력해주세요." });
   } else {
     const salt = 12;
     const hashed = await bcrypt.hash(password, salt);
-    
+
     let id = Number(userId);
-    
+
     await user
       .update(
         {

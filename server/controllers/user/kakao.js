@@ -1,9 +1,7 @@
 const axios = require("axios");
 const { user } = require("../../models");
-const { post } = require("../../models");
 module.exports = {
   getToken: (req, res) => {
-    // console.log(req.body.code, "서버쪽에서받은 코드@@@@@@@@@@@@@@@@@@@@");
     const code = req.body.code;
 
     const client_id = `${process.env.KAKAO_ID}`;
@@ -18,16 +16,13 @@ module.exports = {
       },
     })
       .then((response) => {
-        // console.log(response.data,"@#@#!@#!#@!#!@#!@")
         res.send(response.data);
-
       })
       .catch((error) => {
-        // console.log(error);
+        console.log(error);
       });
   },
   getUserInfo: async (req, res) => {
-    // console.log(req.query.accessToken, "클라이언트에서 받은 토큰");
     try {
       const userInfo = await axios({
         method: "get",
@@ -40,8 +35,6 @@ module.exports = {
       let email = userInfo.data.kakao_account.email;
       let password = userInfo.data.id + nickname;
       let accessToken = req.query.accessToken;
-      // console.log("result 유저정보", userInfo.data);
-
       const result = await user.findOne({
         where: {
           email,
@@ -116,8 +109,5 @@ module.exports = {
     } catch (error) {
       console.log(error);
     }
-  },
-  get: async (req, res) => {
-    res.status(200).send("HELLO WORLD");
   },
 };

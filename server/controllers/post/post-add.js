@@ -1,9 +1,8 @@
 const { post } = require("../../models");
 
 module.exports = {
-sendPost: async (req, res) => {
+  sendPost: async (req, res) => {
     const accessTokendata = req.headers["authorization"];
-    // console.log(accessTokendata, "토큰데이터입니다.");
     const {
       userId,
       postTitle,
@@ -34,10 +33,9 @@ sendPost: async (req, res) => {
             current_member: "1",
             project_status: true,
             created_at: new Date(),
-            updated_at: new Date()
+            updated_at: new Date(),
           })
-          .then((data) => {
-            // console.log("data:", data);
+          .then(() => {
             res.status(201).json({
               message: "ok",
             });
@@ -47,5 +45,5 @@ sendPost: async (req, res) => {
           });
       }
     }
-  }
-}
+  },
+};

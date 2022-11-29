@@ -10,38 +10,38 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
       },
       comment: {
-          type: DataTypes.STRING(255),
-          allowNull: false
+        type: DataTypes.STRING(255),
+        allowNull: false,
       },
       user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onDelete : "cascade",
+        onDelete: "cascade",
         references: {
           model: "user",
-          key: "id"
-        }
+          key: "id",
+        },
       },
       post_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        onDelete : "cascade",
+        onDelete: "cascade",
         references: {
           model: "post",
-          key: "id"
-        }
-      }
+          key: "id",
+        },
+      },
     },
     {
-        sequelize,
-         tableName: "applicant",
-         timestamps: false,
-         underscored: true
+      sequelize,
+      tableName: "applicant",
+      timestamps: false,
+      underscored: true,
     }
-    )
-    applicant.associate = function (models) {
-        applicant.belongsTo(models.user, { foreignKey: "user_id"})
-        applicant.belongsTo(models.post, { foreignKey: "post_id"})
-    }
-    return applicant
-}
+  );
+  applicant.associate = function (models) {
+    applicant.belongsTo(models.user, { foreignKey: "user_id" });
+    applicant.belongsTo(models.post, { foreignKey: "post_id" });
+  };
+  return applicant;
+};
